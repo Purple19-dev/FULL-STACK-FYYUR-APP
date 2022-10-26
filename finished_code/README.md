@@ -27,6 +27,7 @@ Our tech stack will include the following:
  * **Python3** and **Flask** as our server language and server framework
  * **Flask-Migrate** for creating and running schema migrations
 You can download and install the dependencies mentioned above using `pip` as:
+
 ```
 pip install virtualenv
 pip install SQLAlchemy
@@ -168,7 +169,7 @@ source env/Scripts/activate
 
 4. **Install the dependencies:**
 ```
-pip install -r requirements.txt
+
 ```
 
 5. **Run the development server:**
