@@ -106,7 +106,7 @@ def search_venues():
 def show_venue(venue_id):
   # shows the venue page with the given venue_id
   # TODO: replace with real venue data from the venues table, using venue_id
-
+    
     venue = Venue.query.get_or_404(venue_id)
 
     past_shows = []
@@ -119,10 +119,10 @@ def show_venue(venue_id):
             'artist_image_link': show.artist.image_link,
             'start_time': show.start_time.strftime("%m/%d/%Y, %H:%M")
         }
-    if show.start_time <= datetime.now():
-        past_shows.append(temp_show)
-    else:
-        upcoming_shows.append(temp_show)
+        if show.start_time <= datetime.now():
+            past_shows.append(temp_show)
+        else:
+            upcoming_shows.append(temp_show)
 
     # object class to dict
     data = vars(venue)
@@ -167,13 +167,13 @@ def create_venue_submission():
             db.session.add(venue)
             db.session.commit()
             # flash success message
-            flash('Venue' + request.form['name'] + 'was successfully listed!')
+            flash('Venue'+' ' + request.form['name']+' ' + 'was successfully listed!')
         except ValueError as e:
             print(e)
             # If there is any error, roll back it
             db.session.rollback()
             # flash an error message
-            flash('An error occurred.' + venue.name + 'Show could not be listed.')
+            flash('An error occurred.'+' ' + venue.name+' ' + 'Show could not be listed.')
         finally:
             # end the transaction
             db.session.close()
@@ -205,9 +205,9 @@ def delete_venue(venue_id):
     finally:
         db.session.close()
         if error:
-          flash('Venue ' + venue.name + ' could not be successfully deleted!')
+          flash('Venue '+' ' + venue.name +' ' + ' could not be successfully deleted!')
         else:
-          flash('Venue ' + venue.name + ' was successfully deleted!')
+          flash('Venue '+' ' + venue.name +' ' + ' was successfully deleted!')
 
     return render_template('pages/home.html')
 
@@ -250,13 +250,13 @@ def edit_venue_submission(venue_id):
             db.session.add(venue)
             db.session.commit()
             # flash success message
-            flash('Venue' + request.form['name'] + 'was successfully edited!')
+            flash('Venue' +' ' + request.form['name'] +' ' + 'was successfully edited!')
         except ValueError as e:
             print(e)
             # If there is any error, roll back it
             db.session.rollback()
             # flash an error message
-            flash('An error occurred.' + venue.name +  'could not be listed.')
+            flash('An error occurred.'+' ' + venue.name +' ' +  'could not be listed.')
         finally:
             # close the transaction
             db.session.close()
@@ -322,10 +322,10 @@ def show_artist(artist_id):
             'venue_image_link': show.venue.image_link,
             'start_time': show.start_time.strftime("%m/%d/%Y, %H:%M")
         }
-    if show.start_time <= datetime.now():
-        past_shows.append(temp_show)
-    else:
-        upcoming_shows.append(temp_show)
+        if show.start_time <= datetime.now():
+            past_shows.append(temp_show)
+        else:
+            upcoming_shows.append(temp_show)
 
     # object class to dict
     data = vars(artist)
@@ -373,13 +373,13 @@ def edit_artist_submission(artist_id):
             db.session.add(artist)
             db.session.commit()
             # flash success message
-            flash('Artist' + request.form['name'] + 'was successfully edited!')
+            flash('Artist' +' '+ request.form['name']+' '+ 'was successfully edited!')
         except ValueError as e:
             print(e)
             # If there is any error, roll back it
             db.session.rollback()
             # flash an error message
-            flash('An error occurred.' + artist.name + 'could not be edited.')
+            flash('An error occurred.'+' ' + artist.name + ' ' + 'could not be edited.')
         finally:
             # close the transaction
             db.session.close()
