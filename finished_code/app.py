@@ -286,23 +286,23 @@ def artists():
 
 @app.route('/artists/search', methods=['POST'])
 def search_artists():
-  search_term=request.form.get('search_term', '')
-  artists = Artist.query.filter(Artist.name.ilike('%{}%'.format(search_term))).all()
-  artist_data = []
-  for artist in artists:
-    artist_info = {
-      'id': artist.id,
-      'name': artist.name,
-      'num_upcoming_shows': len(list(filter(lambda i: i.start_time > datetime.utcnow(), artist.shows)))
-    }
-
-    artist_data.append(artist_info)
-
-    response={}
-    response['count']= len(artists)
-    response['data']= artist_data
-
-    return render_template('pages/search_artists.html', results=response, search_term=search_term)
+	search_term=request.form.get('search_term', '')
+	artists = Artist.query.filter(Artist.name.ilike('%{}%'.format(search_term))).all()
+	artist_data = []
+	
+	for artist in artists:
+		artist_info = {
+		'id': artist.id,
+		'name': artist.name,
+		'num_upcoming_shows': len(list(filter(lambda i: i.start_time > datetime.utcnow(), artist.shows)))
+		}
+		artist_data.append(artist_info)
+	
+	response={}
+	response['count']= len(artists)
+	response['data']= artist_data
+	
+	return render_template('pages/search_artists.html', results=response, search_term=search_term)
 
 
 @app.route('/artists/<int:artist_id>')
